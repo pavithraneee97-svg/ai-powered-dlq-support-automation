@@ -7,7 +7,7 @@ description: Daily support assistant for DLQ analysis, ticket verification, log 
 
 
 AWS Profile =>  staging - ONLY READ ACCESS
-AWS openserach URL => 
+AWS OpenSearch URL => 
 # Purpose
 
 This skill automates the daily production support workflow for AWS DLQ messages.
@@ -18,14 +18,14 @@ The workflow changes depending on the day of the week.
 
 scripts will be available within <project-folder>/support-activity/daily
 
-Running python script 'read_dlq.py' will create dlq messages text file within the same directory. 
+Running python script 'read-dlq.py' will create dlq messages text file within the same directory. 
 
 ```bash
-python3 ./read_dlq.py
+python3 ./read-dlq.py
 ```
 
-Running python script 'reprocess_dlq.py' will prompt user for which dlq number and client queue to reprocess. Arguments can also be passed to 
-reprocess particualr queue. 
+Running python script 'reprocess-dlq.py' will prompt user for which dlq number and client queue to reprocess. Arguments can also be passed to 
+reprocess particular queue. 
 
 ```bash
 python3 ./reprocess-dlq.py 
@@ -132,7 +132,7 @@ Search OpenSearch (URL provided) for the past 50 hours and get into the particul
 
 Search format
 
-1) Search in ES using below format. the queue name must be the queue name instead of dlq name. Map is provided at the beginning of this file. and filter the response based on the timestamp.
+1) Search in ES using below format. The queue name must be the queue name instead of the dlq name, and filter the response based on the timestamp.
 ```
  curl -s ES URL \
     -H "Content-Type: application/json" \
@@ -145,18 +145,7 @@ Search format
 
 ```
 
-2) Once result is returned, find the session id asssociated with that and filter it again. See step 3.
-```
- curl -s ES URL \
-    -H "Content-Type: application/json" \
-    -d '{
-      "size": 30,
-      "query": {
-        "query_string": {"query": "Whole AND \"<ID>\" AND \"<QUEUE_NAME>\""}
-      }
-    }'
-
-```
+2) From the results of step 1, note the session id of the matching log entry. Use it in step 3.
 
 3) Investigate based on the session id
 ```
@@ -241,7 +230,7 @@ That is handled by another skill.
 
 Never delete messages.
 
-Never reprocess except Monday unles notified
+Never reprocess except Monday unless notified
 
 Never modify support-ticket.txt.
 
