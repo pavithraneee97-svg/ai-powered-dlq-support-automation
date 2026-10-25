@@ -243,7 +243,7 @@ Never delete messages.
 
 Never reprocess except Monday unles notified
 
-modify support-ticket.txt.
+Never modify support-ticket.txt.
 
 Never perform WRITE operations with aws profile
 
