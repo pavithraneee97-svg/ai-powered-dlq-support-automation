@@ -2,6 +2,8 @@
 
 Claude skills that automate the daily support workflow for AWS SQS dead-letter queue (DLQ) messages: analyse failures, investigate logs in OpenSearch, and raise Jira tickets, with a human approving every action that changes something.
 
+**Status:** Proposal. Designed and documented, not used in production.
+
 ## Overview
 
 | Skill | Purpose |
@@ -82,7 +84,7 @@ Open Claude Code in the project folder and ask, for example:
 ## Safety rules
 
 - Never delete DLQ messages.
-- Never reprocess messages automatically; reprocessing happens on Mondays only, after user confirmation.
+- Never reprocess messages automatically. Reprocessing happens on Mondays, after user confirmation, unless the user asks otherwise.
 - AWS access is read-only. No write operations with the AWS profile.
 - `support-activity` never creates Jira tickets.
 - `jira-ticket-creation` never creates a ticket without an explicit "yes", and always runs both duplicate checks.
